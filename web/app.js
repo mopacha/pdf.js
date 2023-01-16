@@ -666,8 +666,19 @@ const PDFViewerApplication = {
     );
   },
 
+  // run(config) {
+  //   this.initialize(config).then(webViewerInitialized);
+  // },
+
   run(config) {
-    this.initialize(config).then(webViewerInitialized);
+    //添加if语句
+    if(config.defaultUrl){
+     AppOptions.set('defaultUrl',config.defaultUrl)
+    }
+    
+    this.initialize(config).then(function(){
+      webViewerInitialized()
+    });
   },
 
   get initialized() {

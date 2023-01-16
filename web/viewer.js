@@ -221,7 +221,8 @@ function getViewerConfiguration() {
   };
 }
 
-function webViewerLoad() {
+//为了跨域而修改的加载方法
+window.webViewerLoad=function webViewerLoad(fileUrl) { //调整了此行{
   const config = getViewerConfiguration();
   if (typeof PDFJSDev === "undefined" || !PDFJSDev.test("PRODUCTION")) {
     if (window.chrome) {
@@ -259,7 +260,10 @@ function webViewerLoad() {
         document.dispatchEvent(event);
       }
     }
-
+    //调整了if 语句
+    if(fileUrl){
+      config.defaultUrl=fileUrl;
+    }
     PDFViewerApplication.run(config);
   }
 }
@@ -268,14 +272,14 @@ function webViewerLoad() {
 // works in Firefox; see https://bugzilla.mozilla.org/show_bug.cgi?id=1618553
 document.blockUnblockOnload?.(true);
 
-if (
-  document.readyState === "interactive" ||
-  document.readyState === "complete"
-) {
-  webViewerLoad();
-} else {
-  document.addEventListener("DOMContentLoaded", webViewerLoad, true);
-}
+// if (
+//   document.readyState === "interactive" ||
+//   document.readyState === "complete"
+// ) {
+//   webViewerLoad();
+// } else {
+//   document.addEventListener("DOMContentLoaded", webViewerLoad, true);
+// }
 
 export {
   PDFViewerApplication,

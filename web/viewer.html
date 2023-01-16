@@ -500,4 +500,20 @@ See https://github.com/adobe-type-tools/cmap-resources
     <input type="file" id="fileInput" class="hidden">
 <!--#endif-->
   </body>
+  <script type="text/javascript">
+		window.onload = function() {
+			var all_href = location.href;
+			var file_id = all_href.split('?')[1];
+			var pdfUrl = file_id.split('=')[1];
+      console.log('load PDF: ',pdfUrl);
+
+      var interval = setInterval(function(){
+        if(window.webViewerLoad) {
+			    webViewerLoad(pdfUrl)
+          clearInterval(interval)
+        }
+      }, 400)
+		}
+		
+	</script>
 </html>
